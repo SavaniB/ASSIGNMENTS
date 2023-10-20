@@ -1,177 +1,95 @@
-<!DOCTYPE html>
-<html>
+
+      <!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Survey Form</title>
     <style>
         /* Add some basic styling for the form */
-        #survey-form {
-            width: 400px;
+        form {
+            width: 300px;
             margin: 0 auto;
         }
-
-        .form-group {
-            margin-bottom: 10px;
-        }
-
         label {
-            display: inline-block;
-            width: 150px;
-            text-align: right;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        select {
-            width: 100%;
-            padding: 5px;
-            font-size: 16px;
-        }
-
-        .gender-group label {
-            display: inline;
-            width: auto;
-        }
-
-        #popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border: 1px solid #ccc;
-            box-shadow: 0px 0px 5px #888;
-            z-index: 1000;
-        }
-
-        #overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            z-index: 999;
+            display: block;
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
-    <div id="survey-form">
-        <h2>Survey Form</h2>
-        <form id="survey">
-            <div class="form-group">
-                <label for="first-name">First Name *</label>
-                <input type="text" id="first-name" required>
-            </div>
-            <div class="form-group">
-                <label for="last-name">Last Name *</label>
-                <input type="text" id="last-name" required>
-            </div>
-            <div class="form-group">
-                <label for="dob">Date of Birth *</label>
-                <input type="date" id="dob" required>
-            </div>
-            <div class="form-group">
-                <label for="country">Country *</label>
-                <select id="country" required>
-                    <option value="">Select Country</option>
-                    <option value="USA">USA</option>
-                    <option value="Canada">Canada</option>
-                    <option value="UK">UK</option>
-                    <!-- Add more countries as needed -->
-                </select>
-            </div>
-            <div class="form-group gender-group">
-                <label>Gender *</label>
-                <label for="male">Male</label>
-                <input type="checkbox" id="male" name="gender" value="Male" required>
-                <label for="female">Female</label>
-                <input type="checkbox" id="female" name="gender" value="Female" required>
-                <label for="other">Other</label>
-                <input type="checkbox" id="other" name="gender" value="Other" required>
-            </div>
-            <div class="form-group">
-                <label for="profession">Profession *</label>
-                <input type="text" id="profession" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="form-group">
-                <label for="mobile">Mobile Number *</label>
-                <input type="tel" id="mobile" required>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Submit">
-                <input type="button" value="Reset" onclick="resetForm()">
-            </div>
-        </form>
-    </div>
+    <form id="surveyForm" onsubmit="return false;">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required>
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required>
+        <label for="dob">Date of Birth:</label>
+        <input type="date" id="dob" required>
+        <label for="country">Country:</label>
+        <select id="country" required>
+            <option value="USA">USA</option>
+            <option value="Canada">Canada</option>
+            <!-- Add more country options here -->
+        </select>
+        <label>Gender:</label>
+        <label><input type="checkbox" name="gender" value="Male"> Male</label>
+        <label><input type="checkbox" name="gender" value="Female"> Female</label>
+        <label for="profession">Profession:</label>
+        <input type="text" id="profession" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" required>
+        <br>
+        <button onclick="resetForm()">Reset</button>
+        <button onclick="submitForm()">Submit</button>
+    </form>
 
-    <!-- Popup and Overlay -->
-    <div id="overlay"></div>
-    <div id="popup">
-        <h2>Survey Form Submission</h2>
-        <div id="popup-content"></div>
+    <div id="popup" style="display: none;">
+        <h2>Survey Form Data</h2>
+        <div id="popupContent"></div>
         <button onclick="closePopup()">Close</button>
     </div>
 
     <script>
-        const form = document.getElementById("survey");
-        const popup = document.getElementById("popup");
-        const overlay = document.getElementById("overlay");
+        function resetForm() {
+            document.getElementById("surveyForm").reset();
+        }
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
-            displayPopup();
-        });
-
-        function displayPopup() {
-            const popupContent = document.getElementById("popup-content");
-            const firstName = document.getElementById("first-name").value;
-            const lastName = document.getElementById("last-name").value;
+        function submitForm() {
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
             const dob = document.getElementById("dob").value;
             const country = document.getElementById("country").value;
-            const genderCheckboxes = document.querySelectorAll('input[name="gender"]:checked');
+            const gender = document.querySelectorAll("input[type=checkbox]:checked");
             const profession = document.getElementById("profession").value;
             const email = document.getElementById("email").value;
             const mobile = document.getElementById("mobile").value;
 
-            let gender = [];
-            genderCheckboxes.forEach(checkbox => gender.push(checkbox.value));
+            if (gender.length === 0) {
+                alert("Please select at least one gender.");
+                return;
+            }
 
-            popupContent.innerHTML = `
+            const genderValues = Array.from(gender).map(checkbox => checkbox.value);
+
+            const popupContent = `
                 <p><strong>First Name:</strong> ${firstName}</p>
                 <p><strong>Last Name:</strong> ${lastName}</p>
                 <p><strong>Date of Birth:</strong> ${dob}</p>
                 <p><strong>Country:</strong> ${country}</p>
-                <p><strong>Gender:</strong> ${gender.join(", ")}</p>
+                <p><strong>Gender:</strong> ${genderValues.join(", ")}</p>
                 <p><strong>Profession:</strong> ${profession}</p>
                 <p><strong>Email:</strong> ${email}</p>
                 <p><strong>Mobile Number:</strong> ${mobile}</p>
-            `;
+            ;
 
-            popup.style.display = "block";
-            overlay.style.display = "block";
-        }
+        document.getElementById("popupContent").innerHTML = popupContent;
+        document.getElementById("popup").style.display = "block";
+    }
 
-        function closePopup() {
-            popup.style.display = "none";
-            overlay.style.display = "none";
-            form.reset();
-        }
-
-        function resetForm() {
-            form.reset();
-        }
-    </script>
-</body>
-</html>
-
-
-
+    function closePopup() {
+        document.getElementById("popup").style.display = "none";
+        resetForm();
+}
 
