@@ -1,8 +1,9 @@
-public class PangramChecker {
+
+       public class PangramChecker {
     public static void main(String[] args) {
         String input = "The quick brown fox jumps over the lazy dog"; // Replace with your input string
-        boolean isPangram = checkIfPangram(input);
-        
+        boolean isPangram = isPangram(input);
+
         if (isPangram) {
             System.out.println("The input is a pangram.");
         } else {
@@ -10,24 +11,30 @@ public class PangramChecker {
         }
     }
 
-    public static boolean checkIfPangram(String str) {
+    public static boolean isPangram(String str) {
+        // Create an array to mark the presence of each letter in the alphabet
+        boolean[] alphabetPresent = new boolean[26];
+
+        // Convert the input string to lowercase to handle uppercase and lowercase letters
         str = str.toLowerCase();
-        boolean[] alphabet = new boolean[26];
 
         for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
-            if ('a' <= c && c <= 'z') {
-                alphabet[c - 'a'] = true;
+
+            // Check if the character is a lowercase letter
+            if (c >= 'a' && c <= 'z') {
+                int index = c - 'a';
+                alphabetPresent[index] = true;
             }
         }
 
-        for (boolean letter : alphabet) {
-            if (!letter) {
-                return false; // If any letter is missing, it's not a pangram
+        // Check if all letters from a to z are present in the input
+        for (boolean present : alphabetPresent) {
+            if (!present) {
+                return false;
             }
         }
 
-        return true; // All letters are present, it's a pangram
+        return true;
     }
 }
-
