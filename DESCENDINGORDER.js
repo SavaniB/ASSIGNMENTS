@@ -1,9 +1,24 @@
-const numbers = [5, 2, 9, 1, 5, 6];
+function sortArrayDescending(arr) {
+    let len = arr.length;
+    let swapped;
+    do {
+        swapped = false;
+        for (let i = 0; i < len - 1; i++) {
+            if (arr[i] < arr[i + 1]) {
+                // Swap the elements
+                let temp = arr[i];
+                arr[i] = arr[i + 1];
+                arr[i + 1] = temp;
+                swapped = true;
+            }
+        }
+    } while (swapped);
 
-// Use the sort() method with a custom comparison function
-numbers.sort(function(a, b) {
-    return b - a; // Sort in descending order
-});
+    return arr;
+}
 
-console.log(numbers); // Output: [9, 6, 5, 5, 2, 1]
+// Example usage:
+let inputArray = [5, 1, 4, 2, 8];
+let sortedArray = sortArrayDescending(inputArray);
+console.log(sortedArray);
 
