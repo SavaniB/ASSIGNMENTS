@@ -1,21 +1,27 @@
-function reverseWords(sentence) {
-    // Split the sentence into words
-    const words = sentence.split(" ");
-    
-    // Reverse each word and store them in a new array
-    const reversedWords = words.map(word => reverseString(word));
-    
-    // Join the reversed words back into a sentence
-    const reversedSentence = reversedWords.join(" ");
-    
-    return reversedSentence;
+
+function reverseWordsInSentence(sentence) {
+    // Split the sentence into words using space as a delimiter
+    let words = sentence.split(' ');
+    let reversedWords = [];
+
+    for (let i = 0; i < words.length; i++) {
+        let word = words[i];
+        let reversedWord = reverseWord(word);
+        reversedWords.push(reversedWord);
+    }
+
+    return reversedWords.join(' ');
 }
 
-function reverseString(str) {
-    // Convert the string to an array of characters, reverse it, and join it back into a string
-    return str.split("").reverse().join("");
+function reverseWord(word) {
+    let reversed = '';
+    for (let i = word.length - 1; i >= 0; i--) {
+        reversed += word[i];
+    }
+    return reversed;
 }
 
-const inputSentence = "This is a sunny day"; // Replace with your input sentence
-const reversedResult = reverseWords(inputSentence);
-console.log(reversedResult);
+// Example usage:
+let inputSentence = "This is a sunny day";
+let reversedSentence = reverseWordsInSentence(inputSentence);
+console.log(reversedSentence);
