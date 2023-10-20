@@ -1,76 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Basic Calculator</title>
     <style>
         /* Add some basic styling for the calculator */
-        #calculator {
+        .calculator {
             width: 300px;
             margin: 0 auto;
             padding: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-shadow: 0px 0px 5px #888;
+            background-color: #f0f0f0;
         }
-
-        input[type="text"] {
+        .calculator input[type="text"] {
             width: 100%;
-            margin-bottom: 10px;
+            margin: 10px 0;
             padding: 5px;
-            font-size: 18px;
         }
-
-        input[type="button"] {
-            width: 45px;
-            height: 45px;
-            font-size: 18px;
+        .calculator button {
+            width: 70px;
+            height: 40px;
             margin: 5px;
         }
     </style>
 </head>
 <body>
-    <div id="calculator">
-        <input type="text" id="result" readonly>
+    <div class="calculator">
+        <h1>Basic Calculator</h1>
+        <input type="text" id="display" disabled>
         <br>
-        <input type="button" value="1" onclick="appendToResult('1')">
-        <input type="button" value="2" onclick="appendToResult('2')">
-        <input type="button" value="3" onclick="appendToResult('3')">
-        <input type="button" value="+" onclick="appendToResult('+')">
+        <button onclick="appendToDisplay('7')">7</button>
+        <button onclick="appendToDisplay('8')">8</button>
+        <button onclick="appendToDisplay('9')">9</button>
+        <button onclick="appendToDisplay('+')">+</button>
         <br>
-        <input type="button" value="4" onclick="appendToResult('4')">
-        <input type="button" value="5" onclick="appendToResult('5')">
-        <input type="button" value="6" onclick="appendToResult('6')">
-        <input type="button" value="-" onclick="appendToResult('-')">
+        <button onclick="appendToDisplay('4')">4</button>
+        <button onclick="appendToDisplay('5')">5</button>
+        <button onclick="appendToDisplay('6')">6</button>
+        <button onclick="appendToDisplay('-')">-</button>
         <br>
-        <input type="button" value="7" onclick="appendToResult('7')">
-        <input type="button" value="8" onclick="appendToResult('8')">
-        <input type="button" value="9" onclick="appendToResult('9')">
-        <input type="button" value="*" onclick="appendToResult('*')">
+        <button onclick="appendToDisplay('1')">1</button>
+        <button onclick="appendToDisplay('2')">2</button>
+        <button onclick="appendToDisplay('3')">3</button>
+        <button onclick="appendToDisplay('')"></button>
         <br>
-        <input type="button" value="0" onclick="appendToResult('0')">
-        <input type="button" value="/" onclick="appendToResult('/')">
-        <input type="button" value="C" onclick="clearResult()">
-        <input type="button" value="=" onclick="calculateResult()">
+        <button onclick="appendToDisplay('0')">0</button>
+        <button onclick="clearDisplay()">C</button>
+        <button onclick="calculateResult()">=</button>
+        <button onclick="appendToDisplay('/')">/</button>
     </div>
 
     <script>
-        function appendToResult(value) {
-            document.getElementById("result").value += value;
+        let display = document.getElementById("display");
+
+        function appendToDisplay(value) {
+            display.value += value;
         }
 
-        function clearResult() {
-            document.getElementById("result").value = "";
+        function clearDisplay() {
+            display.value = "";
         }
 
         function calculateResult() {
             try {
-                const result = eval(document.getElementById("result").value);
-                document.getElementById("result").value = result;
+                display.value = eval(display.value);
             } catch (error) {
-                document.getElementById("result").value = "Error";
+                display.value = "Error";
             }
         }
     </script>
 </body>
 </html>
-
